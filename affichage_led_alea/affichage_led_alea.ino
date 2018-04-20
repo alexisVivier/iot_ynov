@@ -25,5 +25,6 @@ void loop() {
     digitalWrite(tableau[rdm], HIGH);
     delay(2000);
     digitalWrite(tableau[rdm], LOW);
+    delay(500);
   }
 }

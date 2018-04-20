@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Capteur température</title>
+    </head>
+ 
+    <body>
+        <h1>Bienvenue dans l'interface de votre capteur de température !</h1>
+        
+
+
+        <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
+        <script>
+            var socket = io.connect('http://localhost:3000');
+
+            // On affiche une boîte de dialogue quand le serveur nous envoie un "message"
+            socket.on('message', function(message) {
+                alert('Le serveur a un message pour vous : ' + message);
+            });
+
+            socket.on('temp',function(temps){
+                alert('température : '+ temps);
+            });
+
+        </script>
+    </body>
+</html>

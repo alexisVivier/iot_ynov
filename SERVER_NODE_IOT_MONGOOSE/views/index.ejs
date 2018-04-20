@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Capteur température</title>
+    </head>
+ 
+    <body>
+        <h1>Bienvenue dans l'interface de votre capteur de température !</h1>
+        <% if (temps) { %>
+            <p><%= temps.name %></p>
+          <% } %>
+
+
+
+        <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
+        <script>
+            var socket = io.connect('http://localhost:3000');
+
+            // On demande le pseudo au visiteur...
+            var pseudo = prompt('Quel est votre pseudo ?');
+            // Et on l'envoie avec le signal "petit_nouveau" (pour le différencier de "message")
+            socket.emit('petit_nouveau', pseudo);
+
+            // On affiche une boîte de dialogue quand le serveur nous envoie un "message"
+            socket.on('message', function(message) {
+                alert('Le serveur a un message pour vous : ' + message);
+            })
+
+            // Lorsqu'on clique sur le bouton, on envoie un "message" au serveur
+            $('#poke').click(function () {
+                socket.emit('message', 'Salut serveur, ça va ?');
+            })
+            $('#newRoom').click(function () {
+                var random = Math.trunc(Math.random()*100);
+                href = $("#goNewRoom").attr("href", "/room/"+random);
+
+            })
+
+        </script>
+    </body>
+</html>

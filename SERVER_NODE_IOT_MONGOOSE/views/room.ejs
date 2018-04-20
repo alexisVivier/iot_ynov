@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Socket.io</title>
+    </head>
+ 
+    <body>
+        <h1>Room</h1>
+
+        <p>gg vous êtes dans la salle : <%= idRoom %></p>
+
+        
+
+
+
+        <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
+        <script>
+            var socket = io.connect('http://localhost:3000');
+
+            socket.on('pseudo', function(pseudo) {
+                alert('Bien joué : ' + pseudo);
+            })
+
+        </script>
+    </body>
+</html>

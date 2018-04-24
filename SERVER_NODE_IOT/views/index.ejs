@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Capteur température</title>
+    </head>
+ 
+    <body>
+        <h1>Bienvenue dans l'interface de votre maison !</h1>
+        
+        <button id="clignotter1"> Clignoter led 1 </button>
+        <button id="eteindre1"> Eteindre led 1 </button>
+        <button id="clignotter2"> Clignoter led 2 </button>
+        <button id="eteindre2"> Eteindre led 2 </button>
+        <p id='centimetre'>Distance : </p>
+
+        <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
+        <script>
+            var socket = io.connect('http://localhost:3000');
+
+            // On affiche une boîte de dialogue quand le serveur nous envoie un "message"
+            socket.on('message', function(message) {
+                alert('Le serveur a un message pour vous : ' + message);
+            });
+
+            socket.on('temp',function(temps){
+                alert('température : '+ temps);
+            });
+            socket.on('cm',function(distance){
+                $('#centimetre').text("Distance : "+distance);
+            });
+
+            $('#clignotter1').click(function(){
+                console.log("ok");
+                socket.emit('led1On');
+            });
+            $('#eteindre1').click(function(){socket.emit('led1Off'); });
+            $('#clignotter2').click(function(){ socket.emit('led2On'); });
+            $('#eteindre2').click(function(){ socket.emit('led2Off'); });
+
+        </script>
+    </body>
+</html>
